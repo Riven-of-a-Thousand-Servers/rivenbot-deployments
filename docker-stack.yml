@@ -1,1 +1,37 @@
 version: 3.8
+name: Riven-of-a-Thousand-Servers
+
+services:
+  proxy-service:
+    image: rivenbot/proxy-service:${PROXY_SERVICE_VERSION:-latest}
+    ports: 
+      - '8080:8080'
+    deploy:
+      placement:
+        constraints:
+          - node.hostname==proxy-service-droplet
+          - node.role==worker
+  rabbitmq:
+    image: rabbitmq:4.0.7-management
+    ports:
+      - '5672:5672'
+      - '15672:15672'
+    healthcheck:
+      test: rabbitmq-diagnostics -q ping
+      interval: 30s
+      timout: 30s
+      retries: 5 
+    deploy:
+      placement:
+      constraints:
+          - node.hostname==lair
+          - node.role==manager
+  redis:
+    image: redis:7.0.11
+    ports:
+      - '6379:6379'
+    healthcheck:
+      test: ["CMD", "redis-cli", "--raw", "incr", "ping"]
+      interval: 30s
+      timetout: 30s
+      retries: 5

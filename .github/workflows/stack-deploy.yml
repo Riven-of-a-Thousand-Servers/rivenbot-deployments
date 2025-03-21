@@ -1,0 +1,24 @@
+name: Docker Stack Deploy
+
+on:
+  workflow_call:
+    secrets:
+      proxy-service-version:
+        required: false 
+        type: string
+
+jobs:
+  deploy:
+    env:
+      PROXY_SERVICE_VERSION: {{ inputs.proxy-service-version }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          repository: Riven-of-a-Thousand-Servers/rivenbot-deployments
+          token: ${{ secrets.DEPLOYMENT_PAT }}
+      
+      - name: Docker Stack Deploy
+        run: |
+          docker stack deploy -c docker-stack.yml rivenbot-stack
+
