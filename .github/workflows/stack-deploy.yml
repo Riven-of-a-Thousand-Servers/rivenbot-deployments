@@ -6,6 +6,9 @@ on:
       proxy-service-version:
         required: false 
         type: string
+    secrets:
+      DEPLOYMENT_PAT:
+        required: true
 
 jobs:
   deploy:
