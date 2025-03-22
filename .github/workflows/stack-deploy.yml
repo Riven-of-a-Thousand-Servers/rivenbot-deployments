@@ -21,6 +21,12 @@ jobs:
         with:
           repository: Riven-of-a-Thousand-Servers/rivenbot-deployments
           token: ${{ secrets.TOKEN }}
+
+      - name: Debugging
+        run: |
+          pwd
+          echo $USER
+          docker --version
       
       - name: Docker Stack Deploy
         run: |
