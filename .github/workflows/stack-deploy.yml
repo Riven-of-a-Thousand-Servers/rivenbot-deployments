@@ -7,7 +7,7 @@ on:
         required: false 
         type: string
     secrets:
-      DEPLOYMENT_PAT:
+      TOKEN:
         required: true
 
 jobs:
@@ -20,7 +20,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: Riven-of-a-Thousand-Servers/rivenbot-deployments
-          token: ${{ secrets.DEPLOYMENT_PAT }}
+          token: ${{ secrets.TOKEN }}
       
       - name: Docker Stack Deploy
         run: |
