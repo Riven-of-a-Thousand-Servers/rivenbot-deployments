@@ -6,18 +6,21 @@ on:
       proxy-service-version:
         required: false 
         type: string
+    secrets:
+      TOKEN:
+        required: true
 
 jobs:
   deploy:
     runs-on: self-hosted
     env:
-      PROXY_SERVICE_VERSION: {{ inputs.proxy-service-version }}
+      PROXY_SERVICE_VERSION: ${{ inputs.proxy-service-version }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           repository: Riven-of-a-Thousand-Servers/rivenbot-deployments
-          token: ${{ secrets.DEPLOYMENT_PAT }}
+          token: ${{ secrets.TOKEN }}
       
       - name: Docker Stack Deploy
         run: |
