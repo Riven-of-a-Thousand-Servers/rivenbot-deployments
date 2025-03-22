@@ -9,6 +9,7 @@ on:
 
 jobs:
   deploy:
+    runs-on: self-hosted
     env:
       PROXY_SERVICE_VERSION: {{ inputs.proxy-service-version }}
     steps:
