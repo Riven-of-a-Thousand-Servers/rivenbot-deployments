@@ -2,7 +2,7 @@ name: Docker Stack Deploy
 
 on:
   workflow_call:
-    secrets:
+    inputs:
       proxy-service-version:
         required: false 
         type: string
