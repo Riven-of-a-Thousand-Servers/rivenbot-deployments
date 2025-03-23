@@ -1,5 +1,6 @@
 services:
   proxy-service:
+    name: proxy-service
     image: rivenbot/proxy-service:${PROXY_SERVICE_VERSION:-latest}
     ports: 
       - '8080:8080'
@@ -9,6 +10,7 @@ services:
           - node.hostname==proxy-service-droplet
           - node.role==worker
   rabbitmq:
+    name: rabbitmq
     image: rabbitmq:4.0.7-management
     ports:
       - '5672:5672'
@@ -24,6 +26,7 @@ services:
           - node.hostname==lair
           - node.role==manager
   redis:
+    name: redis
     image: redis:7.0.11
     ports:
       - '6379:6379'
