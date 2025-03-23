@@ -32,3 +32,9 @@ services:
       interval: 1m
       timeout: 20s
       retries: 5
+    deploy:
+      placement:
+        constraints:
+          - node.hostname==lair
+          - node.role==manager
+
