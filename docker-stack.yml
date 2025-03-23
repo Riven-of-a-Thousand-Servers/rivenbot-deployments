@@ -9,6 +9,12 @@ services:
         constraints:
           - node.hostname==proxy-service-droplet
           - node.role==worker
+    secrets:
+      - bungie_api_key
+      - ipv6
+    environment:
+      BUNGIE_API_KEY: /run/secrets/bungie_api_key
+      IPV6: /run/secrets/ipv6
   rabbitmq:
     hostname: rabbitmq
     image: rabbitmq:4.0.7-management
@@ -40,4 +46,8 @@ services:
         constraints:
           - node.hostname==lair
           - node.role==manager
-
+secrets:
+  bungie_api_key:
+    external: true
+  ipv6:
+    external: true
