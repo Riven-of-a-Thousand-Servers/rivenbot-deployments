@@ -10,7 +10,6 @@ services:
           - node.hostname==proxy-service-droplet
           - node.role==worker
     secrets:
-      - bungie_api_key
       - ipv6
     environment:
       IPV6: /run/secrets/ipv6
