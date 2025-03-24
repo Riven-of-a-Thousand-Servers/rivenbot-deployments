@@ -13,7 +13,6 @@ services:
       - bungie_api_key
       - ipv6
     environment:
-      BUNGIE_API_KEY: /run/secrets/bungie_api_key
       IPV6: /run/secrets/ipv6
   rabbitmq:
     hostname: rabbitmq
@@ -47,7 +46,5 @@ services:
           - node.hostname==lair
           - node.role==manager
 secrets:
-  bungie_api_key:
-    external: true
   ipv6:
     external: true
