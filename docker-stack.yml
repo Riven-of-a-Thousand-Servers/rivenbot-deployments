@@ -13,6 +13,24 @@ services:
       - ipv6
     environment:
       IPV6: /run/secrets/ipv6
+  pgcr-crawler-service:
+    hostname: pgcr-crawler-service
+    image: rivenbot/pgcr-crawler-service:${PGCR_CRAWLER_SERVICE_VERSION:-latest}
+    ports:
+      - '8081:8081'
+    deploy:
+      placement:
+        constraints:
+          - node.hostname==lair
+          - node.role==manager
+    secrets:
+      - crawler_api_key
+      - bungie_host
+      - rabbitmq_url
+    environment:
+      BUNGIE_API_KEY_FILE: /run/secrets/crawler_api_key
+      BUNGIE_HOST_FILE: /run/secrets/bungie_host
+      RABBITMQ_URL_FILE: /run/secrets/rabbitmq_url
   rabbitmq:
     hostname: rabbitmq
     image: rabbitmq:4.0.7-management
@@ -46,4 +64,10 @@ services:
           - node.role==manager
 secrets:
   ipv6:
+    external: true
+  crawler_api_key:
+    external: true
+  bungie_host:
+    external: true
+  rabbitmq_url:
     external: true

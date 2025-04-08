@@ -6,15 +6,19 @@ on:
       proxy-service-version:
         required: false 
         type: string
+      pgcr-crawler-service-version:
+        required: false
+        type: string
     secrets:
       TOKEN:
-        required: true
+        required: true 
 
 jobs:
   deploy:
     runs-on: self-hosted
     env:
       PROXY_SERVICE_VERSION: ${{ inputs.proxy-service-version }}
+      PGCR_CRAWLER_SERVICE_VERSION: ${{ inputs.pgcr-crawler-service-version }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
