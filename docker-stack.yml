@@ -17,7 +17,7 @@ services:
     hostname: pgcr-crawler-service
     image: rivenbot/pgcr-crawler-service:${PGCR_CRAWLER_SERVICE_VERSION:-latest}
     ports:
-      - '8081:8081'
+      - '8082:8082'
     deploy:
       placement:
         constraints:
