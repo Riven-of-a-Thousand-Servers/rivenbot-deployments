@@ -36,4 +36,4 @@ jobs:
 
       - name: Docker Stack Deploy
         run: |
-          docker --config /tmp/docker-config stack deploy --detach=false -c docker-stack.yml rivenbot-stack
+          docker --config /tmp/docker-config stack deploy --with-registry-auth --detach=false -c docker-stack.yml rivenbot-stack
