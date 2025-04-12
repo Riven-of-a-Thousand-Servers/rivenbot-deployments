@@ -10,6 +10,8 @@ services:
       timeout: 5s
       retries: 3
       start_period: 15s
+    networks:
+      - external
     deploy:
       restart_policy:
         condition: on-failure
@@ -87,3 +89,7 @@ secrets:
     external: true
   rabbitmq_url:
     external: true
+
+networks:
+  external:
+    driver: host
