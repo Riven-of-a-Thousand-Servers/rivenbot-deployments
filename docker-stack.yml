@@ -11,7 +11,7 @@ services:
       retries: 3
       start_period: 15s
     networks:
-      - external
+      - host
     deploy:
       restart_policy:
         condition: on-failure
