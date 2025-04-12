@@ -10,8 +10,7 @@ services:
       timeout: 5s
       retries: 3
       start_period: 15s
-    networks:
-      - host
+    network_mode: "host"
     deploy:
       restart_policy:
         condition: on-failure
@@ -88,9 +87,4 @@ secrets:
   bungie_host:
     external: true
   rabbitmq_url:
-    external: true
-
-networks:
-  host:
-    driver: host
     external: true
