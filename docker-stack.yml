@@ -96,7 +96,6 @@ networks:
     ipam:
       config:
         - subnet: 2604:a880:4:1d0::/64
-    enable_ipv6: true
   default_net:
     driver: overlay
     attachable: true
