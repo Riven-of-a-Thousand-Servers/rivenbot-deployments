@@ -11,8 +11,7 @@ services:
       retries: 3
       start_period: 15s
     networks:
-      - macvlan_net
-      - default_net
+      - outside
     deploy:
       restart_policy:
         condition: on-failure
@@ -32,8 +31,6 @@ services:
     image: rivenbot/pgcr-crawler-service:${PGCR_CRAWLER_SERVICE_VERSION:-latest}
     ports:
       - '8082:8082'
-    networks:
-      - default_net
     deploy:
       restart_policy:
         condition: on-failure
@@ -58,8 +55,6 @@ services:
     ports:
       - '5672:5672'
       - '15672:15672'
-    networks:
-      - default_net
     healthcheck:
       test: ["CMD", "rabbitmqctl", "status"]
       interval: 30s
@@ -75,8 +70,6 @@ services:
     image: redis:7.0.11
     ports:
       - '6379:6379'
-    networks:
-      - default_net
     healthcheck:
       test: ["CMD", "redis-cli", "--raw", "incr", "ping"]
       interval: 1m
@@ -89,16 +82,9 @@ services:
           - node.role==manager
 
 networks:
-  macvlan_net:
-    driver: macvlan
-    driver_opts:
-      parent: eth0
-    ipam:
-      config:
-        - subnet: 2604:a880:4:1d0::/64
-  default_net:
-    driver: overlay
-    attachable: true
+  outside:
+    external:
+      name: "host"
 
 secrets:
   ipv6:
