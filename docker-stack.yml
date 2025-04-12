@@ -91,5 +91,6 @@ secrets:
     external: true
 
 networks:
-  external:
+  host:
     driver: host
+    external: true
