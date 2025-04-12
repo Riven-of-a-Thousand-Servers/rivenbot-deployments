@@ -2,8 +2,6 @@ services:
   proxy-service:
     hostname: proxy-service
     image: rivenbot/proxy-service:${PROXY_SERVICE_VERSION:-latest}
-    ports: 
-      - '8081:8081'
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8081/healthcheck"]
       interval: 10s
