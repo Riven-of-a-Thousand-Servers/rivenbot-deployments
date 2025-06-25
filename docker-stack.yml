@@ -1,4 +1,25 @@
 services:
+  api-service:
+    hostname: rivenbot-api-service
+    image: rivenbot/rivenbot-api-service:${API_SERVICE_VERSION:-latest}
+    ports:
+      - '8083:8083'
+    deploy:
+      restart-policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+      placements:
+        constraints:
+          - node.hostname==lair
+          - node.role==manager
+      secrets:
+        - postgres_username
+        - postgres_password
+      environment:
+        POSTGRES_USERNAME: /run/secrets/postgres_username
+        POSTGRES_PASSWORD: /run/secrets/postgres_password
   proxy-service:
     hostname: proxy-service
     image: rivenbot/proxy-service:${PROXY_SERVICE_VERSION:-latest}
@@ -92,4 +113,8 @@ secrets:
   bungie_host:
     external: true
   rabbitmq_url:
+    external: true
+  postgres_username:
+    external: true
+  postgres_password:
     external: true

@@ -3,6 +3,9 @@ name: Docker Stack Deploy
 on:
   workflow_call:
     inputs:
+      api-service-version:
+        required: false
+        type: string
       proxy-service-version:
         required: false 
         type: string
@@ -21,6 +24,7 @@ jobs:
   deploy:
     runs-on: self-hosted
     env:
+      API_SERVICE_VERSION: ${{ inputs.api-service-version }}
       PROXY_SERVICE_VERSION: ${{ inputs.proxy-service-version }}
       PGCR_CRAWLER_SERVICE_VERSION: ${{ inputs.pgcr-crawler-service-version }}
     steps:
