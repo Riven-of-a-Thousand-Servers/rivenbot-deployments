@@ -4,6 +4,12 @@ services:
     image: rivenbot/rivenbot-api-service:${API_SERVICE_VERSION:-latest}
     ports:
       - '8083:8083'
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8083/healthcheck"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
     deploy:
       restart-policy:
         condition: on-failure
