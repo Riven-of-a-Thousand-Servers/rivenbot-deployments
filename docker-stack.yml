@@ -23,10 +23,10 @@ services:
       secrets:
         - postgres_username
         - postgres_password
-      environment:
-        CONFIG_PATH: prod
-        POSTGRES_USERNAME: /run/secrets/postgres_username
-        POSTGRES_PASSWORD: /run/secrets/postgres_password
+    environment:
+      CONFIG_PATH: prod
+      POSTGRES_USERNAME: /run/secrets/postgres_username
+      POSTGRES_PASSWORD: /run/secrets/postgres_password
   proxy-service:
     hostname: proxy-service
     image: rivenbot/proxy-service:${PROXY_SERVICE_VERSION:-latest}
