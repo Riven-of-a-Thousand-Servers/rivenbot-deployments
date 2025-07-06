@@ -22,7 +22,7 @@ on:
 
 jobs:
   deploy:
-    runs-on: self-hosted
+    runs-on: [self-hosted, Linux, X64]
     env:
       API_SERVICE_VERSION: ${{ inputs.api-service-version }}
       PROXY_SERVICE_VERSION: ${{ inputs.proxy-service-version }}
