@@ -11,7 +11,7 @@ services:
       retries: 3
       start_period: 15s
     deploy:
-      restart-policy:
+      restart_policy:
         condition: on-failure
         delay: 5s
         max_attempts: 3
