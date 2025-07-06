@@ -24,7 +24,7 @@ services:
       - postgres_username
       - postgres_password
     environment:
-      CONFIG_PATH: prod
+      CONFIG_PATH: conifg/prod.yaml
       POSTGRES_USERNAME: /run/secrets/postgres_username
       POSTGRES_PASSWORD: /run/secrets/postgres_password
   proxy-service:
