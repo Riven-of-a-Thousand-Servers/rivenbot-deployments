@@ -16,13 +16,13 @@ services:
         delay: 5s
         max_attempts: 3
         window: 120s
-      placements:
+      placement:
         constraints:
           - node.hostname==lair
           - node.role==manager
-      secrets:
-        - postgres_username
-        - postgres_password
+    secrets:
+      - postgres_username
+      - postgres_password
     environment:
       CONFIG_PATH: prod
       POSTGRES_USERNAME: /run/secrets/postgres_username
