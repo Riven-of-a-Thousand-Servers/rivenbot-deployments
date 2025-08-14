@@ -50,12 +50,13 @@ jobs:
           END=$((SECONDS + TIMEOUT))
 
           while [ $SECONDS -lt $END ]; do
-           NOT_READY=$(docker service ls --filter label=com.docker.stack.namesapce=$STACK --format '{{.Replicas}}' | grep -cE '0/[1-9]')
-           if [ "$NOT_READY" -eq 0]; then
+           NOT_READY=$(docker service ls --filter label=com.docker.stack.namespace=$STACK \
+              --format '{{.Replicas}}' | grep -cE '0/[1-9]')
+           if [ "$NOT_READY" -eq 0 ]; then
              echo "✅ All services are running."
              exit 0
            fi
-             echo "Waiting for services to start..."
+             echo "⏳Waiting for services to start..."
              sleep 3
           done
 
@@ -64,3 +65,4 @@ jobs:
             echo "=== $svc ==="
             docker service ps --no-trunc "$svc"
           done
+          exit 1
