@@ -40,7 +40,7 @@ jobs:
 
       - name: Docker Stack Deploy
         run: |
-          docker --config /tmp/docker-config stack deploy --with-registry-auth --detach=false -qc docker-stack.yml rivenbot-stack
+          docker --config /tmp/docker-config stack deploy --with-registry-auth --detach=true -qc docker-stack.yml rivenbot-stack
 
       - name: Check healthy services
         run: |
