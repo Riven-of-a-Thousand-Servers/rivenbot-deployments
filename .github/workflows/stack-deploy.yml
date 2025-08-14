@@ -40,4 +40,27 @@ jobs:
 
       - name: Docker Stack Deploy
         run: |
-          docker --config /tmp/docker-config stack deploy --with-registry-auth --detach=false -c docker-stack.yml rivenbot-stack
+          docker --config /tmp/docker-config stack deploy --with-registry-auth --detach=false -qc docker-stack.yml rivenbot-stack
+
+      - name: Check healthy services
+        run: |
+          set -e
+          STACK=rivenbot-stack
+          TIMEOUT=60
+          END=$((SECONDS + TIMEOUT))
+
+          while [ $SECONDS -lt $END ]; do
+           NOT_READY=$(docker service ls --filter label=com.docker.stack.namesapce=$STACK) --format '{{.Replicas}}' | grep -cE '0/[1-9]'
+           if [ "$NOT_READY" -eq 0]; then
+             echo "✅ All services are running."
+             exit 0
+           fi
+             echo "Waiting for services to start..."
+             sleep 3
+          done
+
+          echo "❌ Deployment failed: Some services did not start."
+          for svc in $(docker service ls --filter label=com.docker.stack.namespace=$STACK --format '{{.Name}}'); do
+            echo "=== $svc ==="
+            docker service ps --no-trunc "$svc"
+          done
