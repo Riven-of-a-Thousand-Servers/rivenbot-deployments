@@ -61,8 +61,14 @@ jobs:
           done
 
           echo "❌ Deployment failed: Some services did not start."
-          for svc in $(docker service ls --filter label=com.docker.stack.namespace=$STACK --format '{{.Name}}'); do
-            echo "=== $svc ==="
+          for svc in $(docker service ls --filter label=com.docker.stack.namespace=$STACK --format '{{.Name}} {{.Replicas}}'); do
+            name=$(echo $svc | awk '{print $1}')
+            replicas=$(echo $svc | awk '{print $2}')
+            
+            if [[ if $replicas =~ ^[0-9]+/[0-9]+$ ]] || [[ $replicas == */0 ]]; then
+              echo "=== $name ==="
+              docker service ps --no-trunc "$name" | grep -v "Running"
+            fi
             docker service ps --no-trunc "$svc"
           done
           exit 1
