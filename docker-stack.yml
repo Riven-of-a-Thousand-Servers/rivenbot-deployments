@@ -3,9 +3,9 @@ services:
     hostname: rivenbot-api-service
     image: rivenbot/rivenbot-api-service:${API_SERVICE_VERSION:-latest}
     ports:
-      - '8083:8083'
+      - '8080:8080'
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8083/healthcheck"]
+      test: ["CMD", "curl", "-f", "http://localhost:8080/healthcheck"]
       interval: 10s
       timeout: 5s
       retries: 3
