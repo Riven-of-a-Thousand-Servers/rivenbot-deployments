@@ -50,7 +50,7 @@ jobs:
           END=$((SECONDS + TIMEOUT))
 
           while [ $SECONDS -lt $END ]; do
-           NOT_READY=$(docker service ls --filter label=com.docker.stack.namesapce=$STACK) --format '{{.Replicas}}' | grep -cE '0/[1-9]'
+           NOT_READY=$(docker service ls --filter label=com.docker.stack.namesapce=$STACK --format '{{.Replicas}}' | grep -cE '0/[1-9]')
            if [ "$NOT_READY" -eq 0]; then
              echo "✅ All services are running."
              exit 0
